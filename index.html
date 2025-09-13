@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KOOWEXA | Perfiles Oficiales</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --bg-primary: #0a1a2e;
+      --bg-secondary: #0d2342;
+      --accent: #0077ff;
+      --neon: #00bfff;
+      --text: #e0f0ff;
+      --text-subtle: #a0c0e0;
+      --border-radius: 16px;
+      --shadow: 0 0 25px rgba(0, 187, 255, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding: 20px;
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--neon);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      25% { transform: translateY(-25px) translateX(20px); }
+      50% { transform: translateY(0) translateX(40px); }
+      75% { transform: translateY(25px) translateX(-20px); }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px;
+      background: var(--bg-secondary);
+      border-radius: var(--border-radius);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 187, 255, 0.15);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .header h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(90deg, var(--neon), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -1px;
+      text-shadow: 0 0 20px rgba(0, 187, 255, 0.4);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .header p {
+      color: var(--text-subtle);
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: -0.5px;
+    }
+
+    .platform-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .platform-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(0, 187, 255, 0.2);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      color: var(--text);
+      text-decoration: none;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .platform-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 187, 255, 0.15), transparent);
+      transition: left 0.7s;
+    }
+
+    .platform-card:hover::before {
+      left: 100%;
+    }
+
+    .platform-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 50px rgba(0, 187, 255, 0.4);
+      border-color: rgba(0, 187, 255, 0.5);
+    }
+
+    .platform-icon {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      font-size: 28px;
+      border: 1px solid rgba(0, 187, 255, 0.25);
+      transition: all 0.3s;
+      flex-shrink: 0;
+    }
+
+    .platform-card:hover .platform-icon {
+      transform: scale(1.2);
+      background: rgba(0, 187, 255, 0.2);
+      border-color: var(--neon);
+      box-shadow: 0 0 20px rgba(0, 187, 255, 0.4);
+    }
+
+    .platform-info {
+      flex: 1;
+      width: 100%;
+    }
+
+    .platform-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .platform-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+      margin-top: 8px;
+    }
+
+    .platform-meta i {
+      font-size: 14px;
+    }
+
+    .status-online {
+      color: #4ade80;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+
+    .container {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px;
+      }
+      .header h1 {
+        font-size: 2.2rem;
+      }
+      .header p {
+        font-size: 1.1rem;
+      }
+      .platform-list {
+        grid-template-columns: 1fr;
+      }
+      .platform-card {
+        padding: 20px;
+      }
+      .platform-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+      }
+      .platform-title {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px;
+      }
+      .header h1 {
+        font-size: 1.8rem;
+      }
+      .platform-card {
+        padding: 18px;
+      }
+      .platform-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+      }
+      .platform-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  <div class="container">
+    <div class="header">
+      <h1>KOOWEXA</h1>
+      <p>Acceso directo a todos mis canales oficiales</p>
+    </div>
+    <div class="platform-list" id="platformList"></div>
+  </div>
+
+  <script>
+    const platforms = [
+      {
+        name: "YouTube",
+        url: "https://youtube.com/@koowexa?si=QCFg-JY-QJLQe2sZ",
+        icon: "fab fa-youtube",
+        status: "online"
+      },
+      {
+        name: "X (Twitter)",
+        url: "https://x.com/koowexa?t=rW2wTyGXhZT-wShWyU2ROQ&s=09",
+        icon: "fab fa-x",
+        status: "active"
+      },
+      {
+        name: "WhatsApp Channel",
+        url: "https://whatsapp.com/channel/0029VbB6FJk5q08fW25JNN3w",
+        icon: "fab fa-whatsapp",
+        status: "online"
+      },
+      {
+        name: "Telegram",
+        url: "https://t.me/KOOWEXA",
+        icon: "fab fa-telegram",
+        status: "online"
+      },
+      {
+        name: "Web Oficial",
+        url: "https://koowexa.github.io/oficial/",
+        icon: "fas fa-globe",
+        status: "online"
+      },
+      {
+        name: "Likee",
+        url: "https://l.likee.video/p/ZGXfKS",
+        icon: "fas fa-video",
+        status: "active"
+      },
+      {
+        name: "Revolico",
+        url: "https://www.revolico.com/profile/DcSB6y9AXOo35e0GZNjRoEXd?utm_source=whatsapp&utm_medium=social&utm_campaign=share",
+        icon: "fas fa-store",
+        status: "active"
+      },
+      {
+        name: "Facebook Group",
+        url: "https://facebook.com/groups/1276723940400746/",
+        icon: "fab fa-facebook",
+        status: "online"
+      },
+      {
+        name: "Instagram",
+        url: "https://www.instagram.com/koowexa?igsh=cW9nd3kzbjExY3F3",
+        icon: "fab fa-instagram",
+        status: "online"
+      },
+      {
+        name: "Signal",
+        url: "https://signal.group/#CjQKIOCV-_nboITWtsi6f-zklwTQB8NG5HLxFjD6Don7OsYsEhDJJg1wgQ6iIfig2uKcsR7V",
+        icon: "fab fa-signal",
+        status: "online"
+      },
+      {
+        name: "Threads",
+        url: "https://www.threads.com/@koowexa",
+        icon: "fab fa-threads",
+        status: "online"
+      },
+      {
+        name: "WhatsApp Group",
+        url: "https://chat.whatsapp.com/EiugYML243C5Ea9mzHtbS7?mode=ems_copy_t",
+        icon: "fab fa-whatsapp",
+        status: "online"
+      },
+      {
+        name: "Delta Chat",
+        url: "https://i.delta.chat/#1A03294FEB610B9950D7DD760C0B2B47037A18F4&a=r10yq6zyn%40nine.testrun.org&g=KOOWEXA&x=4k5sMoFerLAjoRrna6hvtBV1&i=il3f_oKifcGVGdfjSCMse12q&s=RM5n8Lt1FeMDqDe6DRzxImuj",
+        icon: "fas fa-envelope-open",
+        status: "online"
+      }
+    ];
+
+    const platformList = document.getElementById('platformList');
+    platforms.forEach(platform => {
+      const card = document.createElement('a');
+      card.className = 'platform-card';
+      card.href = platform.url;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+
+      const icon = document.createElement('div');
+      icon.className = 'platform-icon';
+      icon.innerHTML = `<i class="${platform.icon}"></i>`;
+
+      const info = document.createElement('div');
+      info.className = 'platform-info';
+
+      const title = document.createElement('div');
+      title.className = 'platform-title';
+      title.textContent = platform.name;
+
+      const meta = document.createElement('div');
+      meta.className = 'platform-meta';
+
+      const statusIcon = document.createElement('i');
+      statusIcon.className = `fas fa-circle status-${platform.status === 'online' ? 'online' : 'active'}`;
+      meta.appendChild(statusIcon);
+
+      info.appendChild(title);
+      info.appendChild(meta);
+
+      card.appendChild(icon);
+      card.appendChild(info);
+      platformList.appendChild(card);
+    });
+
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.width = `${Math.random() * 6 + 2}px`;
+      particle.style.height = particle.style.width;
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      particlesContainer.appendChild(particle);
+    }
+  </script>
+</body>
+</html>
