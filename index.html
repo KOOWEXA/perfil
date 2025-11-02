@@ -3,181 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KOOWEXA | Perfiles Oficiales</title>
+  <title>KooPerfil</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card: #1e293b;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --online: #34d399;
-      --active: #fbbf24;
-      --radius: 12px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: system-ui, sans-serif;
-      line-height: 1.6;
-      padding: 2rem;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      background: linear-gradient(to right, var(--accent), #818cf8);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 0.5rem;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 1.1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-
-    a.card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.25rem;
-      background: var(--card);
-      border-radius: var(--radius);
-      text-decoration: none;
-      color: var(--text);
-      transition: background 0.2s;
-    }
-
-    a.card:hover,
-    a.card:focus-visible {
-      background: #28354d;
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    .icon-box {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      background: rgba(56, 189, 248, 0.1);
-      display: grid;
-      place-content: center;
-      font-size: 1.4rem;
-      color: var(--accent);
-    }
-
-    .info {
-      flex: 1;
-    }
-
-    .info h2 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .status {
-      font-size: 0.85rem;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--online);
-    }
-
-    .dot.active {
-      background: var(--active);
-    }
-
-    @media (max-width: 600px) {
-      body { padding: 1.25rem; }
-      h1 { font-size: 1.8rem; }
-      .grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>KOOWEXA</h1>
-      <p>Acceso directo a todos mis canales oficiales</p>
+      <h1>KooPerfil</h1>
+      <p>Acceso directo a canales oficiales</p>
+      
+      <div class="controls">
+        <div class="search-container">
+          <i class="fas fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Buscar plataforma...">
+        </div>
+        <button id="themeToggle" class="theme-toggle">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
     </header>
 
     <div class="grid" id="platformList"></div>
+    
+    <div class="no-results" id="noResults" style="display: none;">
+      <i class="fas fa-search"></i>
+      <p>No se encontraron plataformas que coincidan con tu búsqueda</p>
+    </div>
   </div>
 
-  <script>
-    const platforms = [
-      { name: "YouTube", url: "https://youtube.com/@koowexa?si=QCFg-JY-QJLQe2sZ", icon: "fab fa-youtube", status: "online" },
-      { name: "X (Twitter)", url: "https://x.com/koowexa?t=rW2wTyGXhZT-wShWyU2ROQ&s=09", icon: "fab fa-x-twitter", status: "active" },
-      { name: "WhatsApp Channel", url: "https://whatsapp.com/channel/0029VbB6FJk5q08fW25JNN3w", icon: "fab fa-whatsapp", status: "online" },
-      { name: "Telegram", url: "https://t.me/KOOWEXA", icon: "fab fa-telegram", status: "online" },
-      { name: "Web Oficial", url: "https://koowexa.github.io/oficial/", icon: "fas fa-globe", status: "online" },
-      { name: "Likee", url: "https://l.likee.video/p/ZGXfKS", icon: "fas fa-video", status: "active" },
-      { name: "Revolico", url: "https://www.revolico.com/profile/DcSB6y9AXOo35e0GZNjRoEXd", icon: "fas fa-store", status: "active" },
-      { name: "Facebook Group", url: "https://facebook.com/groups/1276723940400746/", icon: "fab fa-facebook", status: "online" },
-      { name: "Facebook Page", url: "https://www.facebook.com/profile.php?id=61581684622578", icon: "fab fa-facebook", status: "online" },
-      { name: "Instagram", url: "https://www.instagram.com/koowexa?igsh=cW9nd3kzbjExY3F3", icon: "fab fa-instagram", status: "online" },
-      { name: "Signal", url: "https://signal.group/#CjQKIOCV-_nboITWtsi6f-zklwTQB8NG5HLxFjD6Don7OsYsEhDJJg1wgQ6iIfig2uKcsR7V", icon: "fab fa-signal", status: "online" },
-      { name: "Threads", url: "https://www.threads.net/@koowexa", icon: "fab fa-threads", status: "online" },
-      { name: "WhatsApp Group", url: "https://chat.whatsapp.com/EiugYML243C5Ea9mzHtbS7?mode=ems_copy_t", icon: "fab fa-whatsapp", status: "online" },
-      { name: "Delta Chat", url: "https://i.delta.chat/#1A03294FEB610B9950D7DD760C0B2B47037A18F4&a=r10yq6zyn%40nine.testrun.org&g=KOOWEXA&x=4k5sMoFerLAjoRrna6hvtBV1&i=il3f_oKifcGVGdfjSCMse12q&s=RM5n8Lt1FeMDqDe6DRzxImuj", icon: "fas fa-envelope-open", status: "online" }
-    ];
-
-    const list = document.getElementById('platformList');
-    platforms.forEach(p => {
-      const a = document.createElement('a');
-      a.className = 'card';
-      a.href = p.url;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.innerHTML = `
-        <div class="icon-box">
-          <i class="${p.icon}"></i>
-        </div>
-        <div class="info">
-          <h2>${p.name}</h2>
-          <div class="status">
-            <span class="dot ${p.status === 'active' ? 'active' : ''}"></span>
-            ${p.status === 'online' ? 'En línea' : 'Activo'}
-          </div>
-        </div>
-      `;
-      list.appendChild(a);
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
